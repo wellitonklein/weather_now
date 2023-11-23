@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'core/core.dart';
 
-void main() {
+void main() async {
   runApp(const AppWidget());
 }
