@@ -12,8 +12,20 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.grey.shade200,
+          border: const OutlineInputBorder(),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(
+              const Size(double.infinity, 50),
+            ),
+          ),
+        ),
       ),
-      home: const SplashPage(),
+      home: const SearchCityPage(),
     );
   }
 }
