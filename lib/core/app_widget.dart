@@ -11,11 +11,14 @@ class AppWidget extends StatelessWidget {
       title: 'Weather Now',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        inputDecorationTheme: InputDecorationTheme(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.cyan,
+          brightness: Brightness.dark,
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          fillColor: Colors.grey.shade200,
-          border: const OutlineInputBorder(),
+          // fillColor: Colors.grey.shade200,
+          border: OutlineInputBorder(),
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../main/main.dart';
+import '../bloc/city_bloc.dart';
 
 class SearchCityPage extends StatefulWidget {
   const SearchCityPage({super.key});
@@ -8,33 +12,115 @@ class SearchCityPage extends StatefulWidget {
 }
 
 class _SearchCityPageState extends State<SearchCityPage> {
+  late final CityBloc cityBloc;
+  late final TextEditingController searchController;
+
+  @override
+  void initState() {
+    cityBloc = cityBlocFactory();
+    searchController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    cityBloc.close();
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Weather Now',
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 50),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Consulta uma cidade aqui',
-                suffixIcon: IconButton(
-                  tooltip: 'Consultar',
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Weather Now',
+                style: Theme.of(context).textTheme.displayMedium,
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 20),
-            FilledButton(onPressed: () {}, child: const Text('Consultar'))
-          ],
+              const SizedBox(height: 50),
+              BlocBuilder<CityBloc, CityState>(
+                bloc: cityBloc,
+                builder: (context, state) {
+                  final isLoading = state == const LoadingCityState();
+
+                  if (state is InitialCityState) {
+                    searchController.text = '';
+                  }
+
+                  return TextField(
+                    readOnly: isLoading,
+                    controller: searchController,
+                    onChanged: (value) {
+                      cityBloc.add(SearchChanged(value: value));
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Consulta uma cidade aqui',
+                      suffixIcon: IconButton(
+                        tooltip: 'Limpar consulta',
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          cityBloc.add(const SearchCleaned());
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              BlocBuilder<CityBloc, CityState>(
+                bloc: cityBloc,
+                builder: (context, state) {
+                  if (state == const LoadingCityState()) {
+                    return const LinearProgressIndicator();
+                  }
+
+                  return FilledButton(
+                    child: const Text('Consultar'),
+                    onPressed: () {
+                      cityBloc.add(const SearchConsulted());
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              BlocBuilder<CityBloc, CityState>(
+                bloc: cityBloc,
+                builder: (context, state) {
+                  if (state is ErrorCityState) {
+                    return Text(state.message);
+                  }
+
+                  if (state is DataCityState) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: state.cities.length,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 5);
+                      },
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          onTap: () {},
+                          tileColor: Theme.of(context).cardColor,
+                          title: Text(
+                            state.cities[index].name,
+                          ),
+                        );
+                      },
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
