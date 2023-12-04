@@ -13,11 +13,10 @@ class AppWidget extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.cyan,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          // fillColor: Colors.grey.shade200,
           border: OutlineInputBorder(),
         ),
         filledButtonTheme: FilledButtonThemeData(

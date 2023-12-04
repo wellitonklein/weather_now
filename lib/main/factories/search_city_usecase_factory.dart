@@ -1,7 +1,6 @@
 import '../../data/data.dart';
 import '../../domain/domain.dart';
-
-import 'city_repository_factory.dart';
+import 'repositories/repositories.dart';
 
 SearchCityUseCase searchCityUseCaseFactory() {
   return SearchCityUseCaseImpl(

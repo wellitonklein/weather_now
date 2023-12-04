@@ -15,16 +15,19 @@ void main() {
   late final String url;
   late final String search;
   late final String apiKey;
+  late final String baseUrl;
   late final String jsonResponse;
 
   setUpAll(() {
     apiKey = 'ANY_KEY';
     search = 'ANY_SEARCH';
+    baseUrl = 'ANY_URL';
     url =
         'https://api.openweathermap.org/geo/1.0/direct?q=$search&limit=5&lang=pt_br&APPID=$apiKey';
     client = HttpMock();
     sut = CityRepositoryImpl(
       client: client,
+      baseUrl: baseUrl,
       apiKey: apiKey,
     );
 

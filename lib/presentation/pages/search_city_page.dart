@@ -98,21 +98,27 @@ class _SearchCityPageState extends State<SearchCityPage> {
                   }
 
                   if (state is DataCityState) {
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: state.cities.length,
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 5);
-                      },
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () {},
-                          tileColor: Theme.of(context).cardColor,
-                          title: Text(
-                            state.cities[index].name,
-                          ),
-                        );
-                      },
+                    return Card(
+                      margin: EdgeInsets.zero,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: state.cities.length,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 5);
+                          },
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {},
+                              tileColor: Theme.of(context).cardColor,
+                              title: Text(
+                                '${state.cities[index].name} - ${state.cities[index].state}',
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     );
                   }
 
