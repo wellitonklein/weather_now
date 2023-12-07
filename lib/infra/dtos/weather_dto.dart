@@ -1,15 +1,18 @@
+import 'dart:convert';
+
 import '../../domain/domain.dart';
 
 extension WeatherDto on WeatherEntity {
   static WeatherEntity fromJson(dynamic data) {
-    final mainMap = data['main'];
+    final dataMap = jsonDecode(data);
+    final mainMap = dataMap['main'];
 
     return WeatherEntity(
-      temperature: mainMap['temp'] as double,
-      minTemperature: mainMap['temp_min'] as double,
-      maxTemperature: mainMap['temp_max'] as double,
-      humidity: mainMap['humidity'] as double,
-      thermalSensation: mainMap['feels_like'] as double,
+      temperature: (mainMap['temp'] as num).toDouble(),
+      minTemperature: (mainMap['temp_min'] as num).toDouble(),
+      maxTemperature: (mainMap['temp_max'] as num).toDouble(),
+      humidity: (mainMap['humidity'] as num).toDouble(),
+      thermalSensation: (mainMap['feels_like'] as num).toDouble(),
     );
   }
 }
