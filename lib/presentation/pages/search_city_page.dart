@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../main/main.dart';
-import '../bloc/city_bloc.dart';
+import '../bloc/bloc.dart';
 
 class SearchCityPage extends StatefulWidget {
   const SearchCityPage({super.key});
