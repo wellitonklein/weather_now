@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
-. ".$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/_/husky.sh"
+
+# hint: The '.husky/pre-commit' hook was ignored because it's not set as executable.
+# chmod ug+x .husky/* && chmod ug+x .git/hooks/*
 
 flutter test
-dart format . -1 120 --set-exit-if-changed
+dart format . -l 120 --set-exit-if-changed
 dart analyze --fatal-infos --fatal-warnings .
