@@ -1,0 +1,12 @@
+description: My first Fluttium flow.
+---
+- log: "Consultando cidade"
+
+- writeText: 'Sarandi'
+
+- pressOn:
+    text: 'Consultar'
+
+- takeScreenshot:
+    path: 'path/to/screenshot.png'
+    pixelRatio: 1.8 # Defaults to device pixel ratio.
