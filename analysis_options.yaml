@@ -4,4 +4,4 @@ analyzer:
   errors:
     prefer_const_constructors: error
     prefer_const_declarations: error
-    depend_on_referenced_packages: ignore
+    depend_on_referenced_packages: ignore 
