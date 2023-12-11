@@ -16,8 +16,7 @@ class CityRepositoryImpl implements CityRepository {
 
   @override
   Future<List<CityEntity>> searchByName({required String search}) async {
-    final url =
-        '$baseUrl/geo/1.0/direct?q=$search&limit=5&lang=pt_br&APPID=$apiKey';
+    final url = '$baseUrl/geo/1.0/direct?q=$search&limit=5&lang=pt_br&APPID=$apiKey';
     final response = await client.get(Uri.parse(url));
     return CityDto.fromJson(response.body);
   }

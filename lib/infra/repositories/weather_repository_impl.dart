@@ -19,8 +19,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
     required double latitude,
     required double longitude,
   }) async {
-    final url =
-        '$baseUrl/data/2.5/weather?lat=$latitude&lon=$longitude&APPID=$apiKey&units=metric&lang=pt_br';
+    final url = '$baseUrl/data/2.5/weather?lat=$latitude&lon=$longitude&APPID=$apiKey&units=metric&lang=pt_br';
     final response = await client.get(Uri.parse(url));
     return WeatherDto.fromJson(response.body);
   }
