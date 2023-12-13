@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class CityEntity {
   final String name;
   final double latitude;
@@ -12,4 +13,9 @@ class CityEntity {
     required this.country,
     required this.state,
   });
+
+  @override
+  String toString() {
+    return 'CityEntity(name: $name, latitude: $latitude, longitude: $longitude, country: $country, state: $state)';
+  }
 }

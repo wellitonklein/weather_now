@@ -110,7 +110,12 @@ class _SearchCityPageState extends State<SearchCityPage> {
                           },
                           itemBuilder: (context, index) {
                             return ListTile(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).pushReplacementNamed(
+                                  '/weather-detail',
+                                  arguments: state.cities[index],
+                                );
+                              },
                               tileColor: Theme.of(context).cardColor,
                               title: Text(
                                 '${state.cities[index].name} - ${state.cities[index].state}',

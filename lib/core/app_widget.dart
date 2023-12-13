@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../domain/domain.dart';
 import '../presentation/presentation.dart';
 
 class AppWidget extends StatelessWidget {
@@ -27,7 +28,27 @@ class AppWidget extends StatelessWidget {
           ),
         ),
       ),
-      home: const SearchCityPage(),
+      initialRoute: '/splash',
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/splash':
+            return MaterialPageRoute(
+              builder: (context) => const SplashPage(),
+            );
+          case '/':
+            return MaterialPageRoute(
+              builder: (context) => const SearchCityPage(),
+            );
+          case '/weather-detail':
+            return MaterialPageRoute(
+              builder: (context) => WeatherDetailPage(
+                city: settings.arguments as CityEntity,
+              ),
+            );
+          default:
+            return null;
+        }
+      },
     );
   }
 }
