@@ -41,28 +41,15 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return BlocProvider.value(
       value: cubit,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Quinta do Sol - Paraná'),
+          title: const CityNameWidget(),
         ),
-        body: Center(
-          child: RichText(
-            text: TextSpan(
-              text: '32',
-              style: textTheme.displayLarge,
-              children: [
-                TextSpan(
-                  text: '°C',
-                  style: textTheme.bodyLarge,
-                ),
-              ],
-            ),
-          ),
+        body: const Center(
+          child: CurrentTempWidget(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
@@ -95,7 +82,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TemperatureDetailWidget(
-                            title: 'Sesação',
+                            title: 'Sensação',
                             value: 49,
                           ),
                           TemperatureDetailWidget(
@@ -115,7 +102,7 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
         bottomNavigationBar: const BottomAppBar(
           elevation: 8,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TemperatureDetailWidget(
                 title: 'Mínima',
@@ -129,6 +116,63 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CurrentTempWidget extends StatelessWidget {
+  const CurrentTempWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return BlocBuilder<WeatherCubit, WeatherState>(
+      builder: (context, state) {
+        if (state is WeatherSuccess) {
+          return RichText(
+            text: TextSpan(
+              text: state.weather.temperature.toStringAsFixed(0),
+              style: textTheme.displayLarge,
+              children: [
+                TextSpan(
+                  text: '°C',
+                  style: textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          );
+        }
+
+        if (state is WeatherLoading) {
+          return const CircularProgressIndicator();
+        }
+
+        if (state is WeatherFailure) {
+          return Text(state.message);
+        }
+
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
+
+class CityNameWidget extends StatelessWidget {
+  const CityNameWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WeatherCubit, WeatherState>(
+      builder: (context, state) {
+        return switch (state) {
+          WeatherLoading() => const LinearProgressIndicator(),
+          WeatherSuccess(:final weather) => Text(weather.city!.addressFull),
+          WeatherFailure(:final message) => Text(message),
+        };
+      },
     );
   }
 }

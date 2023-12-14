@@ -14,8 +14,5 @@ class CityEntity {
     required this.state,
   });
 
-  @override
-  String toString() {
-    return 'CityEntity(name: $name, latitude: $latitude, longitude: $longitude, country: $country, state: $state)';
-  }
+  String get addressFull => '$name, $state - $country';
 }

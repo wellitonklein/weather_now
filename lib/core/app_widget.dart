@@ -45,6 +45,12 @@ class AppWidget extends StatelessWidget {
                 city: settings.arguments as CityEntity,
               ),
             );
+          case '/failure':
+            return MaterialPageRoute(
+              builder: (context) => FailurePage(
+                errorMessage: settings.arguments as String,
+              ),
+            );
           default:
             return null;
         }
