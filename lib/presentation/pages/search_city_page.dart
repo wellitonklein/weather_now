@@ -111,7 +111,7 @@ class _SearchCityPageState extends State<SearchCityPage> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-                                Navigator.of(context).pushReplacementNamed(
+                                Navigator.of(context).pushNamed(
                                   '/weather-detail',
                                   arguments: state.cities[index],
                                 );
