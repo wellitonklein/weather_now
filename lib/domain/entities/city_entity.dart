@@ -1,18 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class CityEntity {
-  final String name;
-  final double latitude;
-  final double longitude;
-  final String country;
-  final String state;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const CityEntity({
-    required this.name,
-    required this.longitude,
-    required this.latitude,
-    required this.country,
-    required this.state,
-  });
+part 'city_entity.freezed.dart';
+
+@freezed
+class CityEntity with _$CityEntity {
+  const factory CityEntity({
+    required String name,
+    required double latitude,
+    required double longitude,
+    required String country,
+    required String state,
+  }) = _CityEntity;
+
+  factory CityEntity.empty() {
+    return const CityEntity(
+      name: '',
+      latitude: 0,
+      longitude: 0,
+      country: '',
+      state: '',
+    );
+  }
 
   String get addressFull => '$name, $state - $country';
+
+  const CityEntity._();
 }

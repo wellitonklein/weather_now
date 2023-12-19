@@ -1,37 +1,19 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'city_entity.dart';
 
-class WeatherEntity {
-  final double temperature;
-  final double minTemperature;
-  final double maxTemperature;
-  final double humidity;
-  final double thermalSensation;
-  final CityEntity? city;
+part 'weather_entity.freezed.dart';
 
-  const WeatherEntity({
-    required this.temperature,
-    required this.minTemperature,
-    required this.maxTemperature,
-    required this.humidity,
-    required this.thermalSensation,
-    this.city,
-  });
+@freezed
+class WeatherEntity with _$WeatherEntity {
+  const factory WeatherEntity({
+    required double temperature,
+    required double minTemperature,
+    required double maxTemperature,
+    required double humidity,
+    required double thermalSensation,
+    required CityEntity city,
+  }) = _WeatherEntity;
 
-  WeatherEntity copyWith({
-    double? temperature,
-    double? minTemperature,
-    double? maxTemperature,
-    double? humidity,
-    double? thermalSensation,
-    CityEntity? city,
-  }) {
-    return WeatherEntity(
-      temperature: temperature ?? this.temperature,
-      minTemperature: minTemperature ?? this.minTemperature,
-      maxTemperature: maxTemperature ?? this.maxTemperature,
-      humidity: humidity ?? this.humidity,
-      thermalSensation: thermalSensation ?? this.thermalSensation,
-      city: city ?? this.city,
-    );
-  }
+  const WeatherEntity._();
 }
