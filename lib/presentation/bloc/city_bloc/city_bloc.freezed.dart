@@ -22,25 +22,18 @@ mixin _$CityState {
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CityStateCopyWith<CityState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $CityStateCopyWith<CityState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CityStateCopyWith<$Res> {
-  factory $CityStateCopyWith(CityState value, $Res Function(CityState) then) =
-      _$CityStateCopyWithImpl<$Res, CityState>;
+  factory $CityStateCopyWith(CityState value, $Res Function(CityState) then) = _$CityStateCopyWithImpl<$Res, CityState>;
   @useResult
-  $Res call(
-      {String searchField,
-      List<CityEntity> cities,
-      String errorMessage,
-      bool isLoading});
+  $Res call({String searchField, List<CityEntity> cities, String errorMessage, bool isLoading});
 }
 
 /// @nodoc
-class _$CityStateCopyWithImpl<$Res, $Val extends CityState>
-    implements $CityStateCopyWith<$Res> {
+class _$CityStateCopyWithImpl<$Res, $Val extends CityState> implements $CityStateCopyWith<$Res> {
   _$CityStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -78,27 +71,18 @@ class _$CityStateCopyWithImpl<$Res, $Val extends CityState>
 }
 
 /// @nodoc
-abstract class _$$CityStateImplCopyWith<$Res>
-    implements $CityStateCopyWith<$Res> {
-  factory _$$CityStateImplCopyWith(
-          _$CityStateImpl value, $Res Function(_$CityStateImpl) then) =
+abstract class _$$CityStateImplCopyWith<$Res> implements $CityStateCopyWith<$Res> {
+  factory _$$CityStateImplCopyWith(_$CityStateImpl value, $Res Function(_$CityStateImpl) then) =
       __$$CityStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String searchField,
-      List<CityEntity> cities,
-      String errorMessage,
-      bool isLoading});
+  $Res call({String searchField, List<CityEntity> cities, String errorMessage, bool isLoading});
 }
 
 /// @nodoc
-class __$$CityStateImplCopyWithImpl<$Res>
-    extends _$CityStateCopyWithImpl<$Res, _$CityStateImpl>
+class __$$CityStateImplCopyWithImpl<$Res> extends _$CityStateCopyWithImpl<$Res, _$CityStateImpl>
     implements _$$CityStateImplCopyWith<$Res> {
-  __$$CityStateImplCopyWithImpl(
-      _$CityStateImpl _value, $Res Function(_$CityStateImpl) _then)
-      : super(_value, _then);
+  __$$CityStateImplCopyWithImpl(_$CityStateImpl _value, $Res Function(_$CityStateImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -165,18 +149,15 @@ class _$CityStateImpl extends _CityState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CityStateImpl &&
-            (identical(other.searchField, searchField) ||
-                other.searchField == searchField) &&
+            (identical(other.searchField, searchField) || other.searchField == searchField) &&
             const DeepCollectionEquality().equals(other._cities, _cities) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+            (identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage) &&
+            (identical(other.isLoading, isLoading) || other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchField,
-      const DeepCollectionEquality().hash(_cities), errorMessage, isLoading);
+  int get hashCode =>
+      Object.hash(runtimeType, searchField, const DeepCollectionEquality().hash(_cities), errorMessage, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -203,6 +184,5 @@ abstract class _CityState extends CityState {
   bool get isLoading;
   @override
   @JsonKey(ignore: true)
-  _$$CityStateImplCopyWith<_$CityStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CityStateImplCopyWith<_$CityStateImpl> get copyWith => throw _privateConstructorUsedError;
 }
