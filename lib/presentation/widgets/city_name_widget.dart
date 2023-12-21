@@ -12,7 +12,10 @@ class CityNameWidget extends StatelessWidget {
       builder: (context, state) {
         return state.map(
           loading: (_) => const LinearProgressIndicator(),
-          success: (success) => Text(success.weather.city.addressFull),
+          success: (success) => Tooltip(
+            message: success.weather.city.addressFull,
+            child: Text(success.weather.city.addressFull),
+          ),
           failure: (failure) => Text(failure.message),
         );
       },
