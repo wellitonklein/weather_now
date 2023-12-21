@@ -39,6 +39,7 @@ class _SearchCityPageState extends State<SearchCityPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const SizedBox(height: 30),
                 Text(
                   'Weather Now',
                   style: Theme.of(context).textTheme.displayMedium,
