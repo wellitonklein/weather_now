@@ -1,7 +1,12 @@
+import 'package:dartz/dartz.dart';
+
 import '../entities/entities.dart';
+import '../failures/failures.dart';
+
+typedef SearchWeatherOutput = Future<Either<WeatherFailure, WeatherEntity>>;
 
 abstract interface class SearchWeatherUseCase {
-  Future<WeatherEntity> call({
+  SearchWeatherOutput call({
     required String city,
     required String state,
     required String country,

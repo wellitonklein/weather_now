@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 import '../../domain/domain.dart';
@@ -15,12 +16,16 @@ class WeatherRepositoryImpl implements WeatherRepository {
   });
 
   @override
-  Future<WeatherEntity> searchByLocation({
+  SearchByLocationOutput searchByLocation({
     required double latitude,
     required double longitude,
   }) async {
-    final url = '$baseUrl/data/2.5/weather?lat=$latitude&lon=$longitude&APPID=$apiKey&units=metric&lang=pt_br';
-    final response = await client.get(Uri.parse(url));
-    return WeatherDto.fromJson(response.body);
+    try {
+      final url = '$baseUrl/data/2.5/weather?lat=$latitude&lon=$longitude&APPID=$apiKey&units=metric&lang=pt_br';
+      final response = await client.get(Uri.parse(url));
+      return right(WeatherDto.fromJson(response.body));
+    } catch (_) {
+      return left(const WeatherFailure.unexpected());
+    }
   }
 }

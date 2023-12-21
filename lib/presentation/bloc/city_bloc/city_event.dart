@@ -1,24 +1,14 @@
 part of 'city_bloc.dart';
 
-abstract interface class CityEvent {
-  const CityEvent();
-}
+@freezed
+class CityEvent with _$CityEvent {
+  const factory CityEvent.searchChanged({
+    required String value,
+  }) = _SearchChanged;
 
-/// Digitando o que será pesquisado
-class SearchChanged extends CityEvent {
-  final String value;
+  const factory CityEvent.searchCleaned() = _SearchCleaned;
 
-  const SearchChanged({
-    required this.value,
-  });
-}
+  const factory CityEvent.searchConsulted() = _SearchConsulted;
 
-/// Apagar o nome da cidade
-class SearchCleaned extends CityEvent {
-  const SearchCleaned();
-}
-
-/// consultar a cidade
-class SearchConsulted extends CityEvent {
-  const SearchConsulted();
+  const CityEvent._();
 }

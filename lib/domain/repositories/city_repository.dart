@@ -1,5 +1,10 @@
+import 'package:dartz/dartz.dart';
+
 import '../entities/entities.dart';
+import '../failures/failures.dart';
+
+typedef SearchByNameOutput = Future<Either<CityFailure, List<CityEntity>>>;
 
 abstract interface class CityRepository {
-  Future<List<CityEntity>> searchByName({required String search});
+  SearchByNameOutput searchByName({required String search});
 }

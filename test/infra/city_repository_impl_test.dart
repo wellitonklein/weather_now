@@ -68,6 +68,6 @@ void main() {
     //
     final cities = await sut.searchByName(search: search);
     //
-    expect(cities.isNotEmpty, isTrue);
+    expect(cities.isRight(), isTrue);
   });
 }

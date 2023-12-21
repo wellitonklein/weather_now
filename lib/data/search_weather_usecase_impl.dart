@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../domain/domain.dart';
 
 class SearchWeatherUseCaseImpl implements SearchWeatherUseCase {
@@ -8,7 +10,7 @@ class SearchWeatherUseCaseImpl implements SearchWeatherUseCase {
   });
 
   @override
-  Future<WeatherEntity> call({
+  SearchWeatherOutput call({
     required String city,
     required String state,
     required String country,
@@ -16,30 +18,35 @@ class SearchWeatherUseCaseImpl implements SearchWeatherUseCase {
     required double longitude,
   }) async {
     if (latitude == 0 || longitude == 0) {
-      throw Exception('Nenhuma localização informada.');
+      return left(const WeatherFailure.noLocationGiven());
     }
 
     if (city.isEmpty) {
-      throw Exception('Nenhuma cidade válida informada.');
+      return left(const WeatherFailure.noValidCityReported());
     }
 
-    final weather = await repository.searchByLocation(
+    final response = await repository.searchByLocation(
       latitude: latitude,
       longitude: longitude,
     );
 
-    final currentCity = CityEntity(
-      name: city,
-      longitude: longitude,
-      latitude: latitude,
-      country: country,
-      state: state,
-    );
+    return response.fold(
+      (failure) => left(failure),
+      (weather) {
+        final currentCity = CityEntity(
+          name: city,
+          longitude: longitude,
+          latitude: latitude,
+          country: country,
+          state: state,
+        );
 
-    final weatherAndCity = weather.copyWith(
-      city: currentCity,
-    );
+        final weatherAndCity = weather.copyWith(
+          city: currentCity,
+        );
 
-    return weatherAndCity;
+        return right(weatherAndCity);
+      },
+    );
   }
 }

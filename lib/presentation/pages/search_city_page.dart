@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,7 +99,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
           readOnly: state.isLoading,
           controller: searchController,
           onChanged: (value) {
-            cityBloc.add(SearchChanged(value: value));
+            cityBloc.add(CityEvent.searchChanged(value: value));
           },
           decoration: InputDecoration(
             hintText: 'Consulta uma cidade aqui',
@@ -106,7 +107,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
               tooltip: 'Limpar consulta',
               icon: const Icon(Icons.close),
               onPressed: () {
-                cityBloc.add(const SearchCleaned());
+                cityBloc.add(const CityEvent.searchCleaned());
               },
             ),
           ),
@@ -136,7 +137,7 @@ class ConsultButtonWidget extends StatelessWidget {
         return FilledButton(
           child: const Text('Consultar'),
           onPressed: () {
-            cityBloc.add(const SearchConsulted());
+            cityBloc.add(const CityEvent.searchConsulted());
           },
         );
       },
@@ -154,12 +155,28 @@ class CityListWidget extends StatelessWidget {
     return BlocConsumer<CityBloc, CityState>(
       bloc: cityBloc,
       listenWhen: (previous, current) {
-        return (previous.errorMessage != current.errorMessage) && current.errorMessage.isNotEmpty;
+        return current.failureOrSuccess.isSome();
       },
       listener: (context, state) {
+        final isFailure = state.failureOrSuccess.fold(
+          () => true,
+          (leftOrRigth) => leftOrRigth.isLeft(),
+        );
+
+        final message = state.failureOrSuccess.fold(
+          () => '',
+          (leftOrRigth) => leftOrRigth.fold(dartz.id, (success) => success),
+        );
+
+        final primaryColor = Theme.of(context).colorScheme.primary;
+        final failureColor = Theme.of(context).colorScheme.error;
+
         final snackBar = SnackBar(
-          content: Text(state.errorMessage),
-          backgroundColor: Colors.red.shade400,
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.black87),
+          ),
+          backgroundColor: isFailure ? failureColor : primaryColor,
           shape: RoundedRectangleBorder(
             side: const BorderSide(color: Colors.black87, width: 2),
             borderRadius: BorderRadius.circular(28),
@@ -169,6 +186,12 @@ class CityListWidget extends StatelessWidget {
             vertical: 15,
           ),
           behavior: SnackBarBehavior.floating,
+          action: SnackBarAction(
+            label: 'Fechar',
+            onPressed: () {},
+            textColor: Colors.white,
+            backgroundColor: Colors.black87,
+          ),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
