@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -173,7 +172,7 @@ class CityListWidget extends StatelessWidget {
 
         final message = state.failureOrSuccess.fold(
           () => '',
-          (leftOrRigth) => leftOrRigth.fold(dartz.id, (success) => success),
+          (leftOrRigth) => leftOrRigth.getOrElse((l) => l),
         );
 
         final primaryColor = Theme.of(context).colorScheme.primary;

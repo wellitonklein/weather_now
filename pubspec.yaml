@@ -8,10 +8,10 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
-  dartz: ^0.10.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  fpdart: ^1.1.0
   freezed_annotation: ^2.4.1
   http: ^1.1.2
   sentry_flutter: ^7.14.0
@@ -31,4 +31,4 @@ flutter:
   uses-material-design: true
 
 lint_staged:
-  'lib/**.dart': dart format -l 120 && dart analyze --fatal-infos --fatal-warnings
+  "lib/**.dart": dart format -l 120 && dart analyze --fatal-infos --fatal-warnings

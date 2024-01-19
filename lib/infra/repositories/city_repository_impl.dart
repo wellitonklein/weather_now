@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 import '../../domain/domain.dart';
 import '../dtos/dtos.dart';
