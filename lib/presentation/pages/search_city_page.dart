@@ -50,6 +50,13 @@ class _SearchCityPageState extends State<SearchCityPage> {
                 const SizedBox(height: 20),
                 const ConsultButtonWidget(),
                 const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    throw Exception('Ocorreu um erro aqui');
+                  },
+                  child: const Text('Crash button'),
+                ),
+                const SizedBox(height: 20),
                 const CityListWidget(),
               ],
             ),
